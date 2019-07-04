@@ -1,7 +1,7 @@
 # nim_type_zero
 
 Rule
-- The game is played with a deck of 40 cards, labeled with a Club A, Diamond 1, Heart 2, Spade 3.
+- The game is played with a deck of 40 cards, labeled with number 0, 1, 2, 3.
 - The deck is shuffled and the cards are dealt to each player.
 - Players start betting with chips before the game starts, and can call, raise, or fold in relation to the bet.
 - The game starts with each player having four cards in their hand not revealed to their opponents.
