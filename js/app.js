@@ -7,7 +7,8 @@ class Player {
     constructor(name){
         this.name=name;
         this.hand=[];
-        this.score=0;
+        this.win=0;
+        this.loss=0;
         this.turn=0;
     }
 }
@@ -24,6 +25,7 @@ const game = {
     cards:[],
     gilbreathDeck:[],
     finalDeck:[],
+
     
 
 
@@ -71,31 +73,40 @@ const game = {
         for (let i = 0; i < 16; i++){
             if(i>=0 && i<4){
                 this.players[0].hand.push(this.finalDeck[i].value)
+                this.players[0].hand.sort()
             } else if(i>=4 && i<8){
                 this.players[1].hand.push(this.finalDeck[i].value)
+                this.players[1].hand.sort()
             } else if(i>=8 && i<12){
                 this.players[2].hand.push(this.finalDeck[i].value)
+                this.players[2].hand.sort()
             } else {
                 this.players[3].hand.push(this.finalDeck[i].value)
+                this.players[3].hand.sort()
             }
         }
         console.log(this.players)
     },
 
-    playCard() {
-    
+    playCards(serial,index){
+        this.cumulative+=this.players[serial].hand[index]
+        console.log(this.cumulative)
+
+        if(this.cumulative>=9){
+            console.log(this.players[serial].name+' lost!')
+            this.players[serial].loss+=1
+
+            for (let i = 0; i <4; i++){
+                if (i !== serial){
+                    this.players[i].win+=1
+                }
+            }
+        }
     }
 
-
-    
-
-
-
-
-
-    
-
 }
+
+
 
 game.playersCreate()
 game.cardsCreate()
