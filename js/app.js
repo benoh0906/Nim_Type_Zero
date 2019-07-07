@@ -25,6 +25,7 @@ const game = {
     cards:[],
     gilbreathDeck:[],
     finalDeck:[],
+    turnCount:0,
 
     
 
@@ -86,13 +87,47 @@ const game = {
             }
         }
         console.log(this.players)
+
+        for(let j = 0; j<4;j++){
+            for(let i = 0; i<4; i++){
+                if(j===0){
+                    $(`#p${j+1}Card`).append(`<img width="70" height="90" src="css/img/card/${this.players[j].hand[i]}.png">`)
+                } else {
+                    $(`#p${j+1}Card`).append(`<img width="70" height="90" src="css/img/card/back.jpg">`)
+                }
+            }
+        }
+
+        
+    },
+
+    revealCards(turn) {
+
+        for( let i = 1; i< 4 ; i++){
+            // $(`#p${i+1}Card`).eq(turn).replace(`<img width="70" height="90" src="css/img/card/${this.players[i].hand[turn]}.png">`)
+            // $(`#p${i+1}Card`).prepend(`<img width="70" height="90" src="css/img/card/${this.players[i].hand[turn]}.png">`)
+
+            // $(`#p${i+1}Card`).eq(turn).replace(`<img width="70" height="90" src="css/img/card/back.jpg">`,`<img width="70" height="90" src="css/img/card/${this.players[i].hand[turn]}.png">`)
+            // console.log($(`#p${i+1}Card`).eq(turn).src())
+            // $(`#p${i+1}Card`).eq(0).attr('src')
+            // $(`#p${i+1}Card`).eq(turn).append(`<img width="70" height="90" src="css/img/card/${this.players[i].hand[turn]}.png">`)
+            document.querySelector(`#p${i+1}Card`).childNodes[turn].src=`css/img/card/${this.players[i].hand[turn]}.png`;
+
+        }
+
+        
     },
 
     playCards(serial,index){
         this.cumulative+=this.players[serial].hand[index]
+
+        $(`.total`).html(`${this.cumulative}`)
         console.log(this.cumulative)
 
+    
+
         if(this.cumulative>=9){
+            $(`.total`).html(`${this.players[serial].name} lost!`)
             console.log(this.players[serial].name+' lost!')
             this.players[serial].loss+=1
 
@@ -101,6 +136,7 @@ const game = {
                     this.players[i].win+=1
                 }
             }
+            
         }
     }
 
@@ -113,3 +149,25 @@ game.cardsCreate()
 game.gilbreathCreate()
 game.gilbreathShuffle()
 game.distributeCards()
+
+$p1Card=$(`#p1Card`);
+$p1Card.on('click',(e)=>{
+    game.playCards(0,$(e.target).index())
+    game.players[0].turn+=1
+    $(e.target).css('opacity','0.5')
+
+
+    for (let i=1;i<4;i++){
+        if(game.cumulative <9){
+            game.playCards(i,game.turnCount);
+
+        }
+    }
+    game.revealCards(game.turnCount)
+    game.turnCount+=1;
+
+});
+
+$(`body`).on(`click`,(e) =>{
+    console.log($(e.target).index())
+})
