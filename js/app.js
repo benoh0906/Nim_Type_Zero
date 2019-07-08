@@ -2,11 +2,49 @@ function shuffle(array) {
     array.sort(() => Math.random() - 0.5);
   }
 
+function compAI(index){
+
+    const win = []
+    const lose=[]
+    
+    for(let i = 0; i < game.players[index].hand.length;i++){
+        console.log(`player${index+1}`)
+        const usedOrNot=document.querySelector(`#p${index+1}Card`).childNodes[i].src
+        if(usedOrNot ==="file:///Users/jungbinoh/sei-autumn-sweaters/nim_type_zero/css/img/card/back.jpg"){
+            if (game.players[index].hand[i]+game.cumulative < 9){
+                win.push([game.players[index].hand[i],i])
+                console.log('val:'+game.players[index].hand[i])
+                console.log('i:'+i)
+            } else {
+
+                lose.push([game.players[index].hand[i],i])
+                console.log('val:'+game.players[index].hand[i])
+                console.log('i:'+i)
+            }
+        }
+    }
+
+    if(win.length>=1){
+
+        console.log(`returned index: ${win[0][1]} and value:${win[0][0]} `)
+        return win[0][1]
+
+    } else{
+        console.log(`returned index: ${lose[0][1]} and value:${lose[0][0]} `)
+
+        return lose[0][1]
+
+    }
+}
+
+
+
 
 class Player {
     constructor(name){
         this.name=name;
         this.hand=[];
+        this.used=[];
         this.win=0;
         this.loss=0;
         this.turn=0;
@@ -78,12 +116,15 @@ const game = {
             } else if(i>=4 && i<8){
                 this.players[1].hand.push(this.finalDeck[i].value)
                 this.players[1].hand.sort()
+                this.players[1].hand.reverse()
             } else if(i>=8 && i<12){
                 this.players[2].hand.push(this.finalDeck[i].value)
                 this.players[2].hand.sort()
+                this.players[2].hand.reverse()
             } else {
                 this.players[3].hand.push(this.finalDeck[i].value)
                 this.players[3].hand.sort()
+                this.players[3].hand.reverse()
             }
         }
         console.log(this.players)
@@ -156,8 +197,9 @@ $p1Card.on('click',(e)=>{
 
         for (let i=1;i<4;i++){
             if(game.cumulative <9){
-                game.playCards(i,game.turnCount);
-                game.revealCards(i,game.turnCount)
+                let cardSelect = compAI(i)
+                game.playCards(i,cardSelect);
+                game.revealCards(i,cardSelect)
 
             }
         }
