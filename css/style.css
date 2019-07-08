@@ -12,9 +12,9 @@ body{
 .total{
     position: relative;
     font-size:57px;
-    color: black;
+    color: white;
     z-index: 3;
-    top: -11rem;
+    top: -29rem;
 }
 
 #player1 {
@@ -69,5 +69,26 @@ body{
     position: relative;
     top: 8rem;
     left: 13rem;
+    border: 1px solid black;
+}
+
+#p2Card{
+    position: relative;
+    top: -12rem;
+    left: -27rem;
+    border: 1px solid black;
+}
+
+#p3Card{
+    position: relative;
+    top: -31rem;
+    left: 13rem;
+    border: 1px solid black;
+}
+
+#p4Card{
+    position: relative;
+    top: -23rem;
+    left: 27rem;
     border: 1px solid black;
 }
