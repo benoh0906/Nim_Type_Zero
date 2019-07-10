@@ -1,12 +1,63 @@
 body{
     text-align: center;
+    font-family:'Inconsolata', monospace;
+}
+.gameOverModal{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(133, 133, 133, 0.7);
+    position: absolute;
+    top:0;
+    display: flex;
+    justify-content: center;
+    align-items: : center;
+    z-index:3;
+}
+
+.gameOver{
+    width: 400px;
+    height: 100px;
+    background-color: white;
+    border-radius: 4px;
+    text-align: center;
+    padding: 20px;
+    margin: auto;
+}
+
+.startModal{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(133, 133, 133, 0.7);
+    position: absolute;
+    top:0;
+    display: flex;
+    justify-content: center;
+    align-items: : center;
+    z-index:3;
+}
+
+.askStart{
+    width: 400px;
+    height: 100px;
+    background-color: white;
+    border-radius: 4px;
+    text-align: center;
+    padding: 20px;
+    margin: auto;
 }
 
 .scoreBoard{
+    animation: fadeIn 4s;
     margin: auto;
     width:700px;
     height:100px;
     border: 1px solid black;
+    
+}
+
+.status{
+    column-count:4;
+
 }
 
 .total{
@@ -15,6 +66,71 @@ body{
     color: white;
     z-index: 3;
     top: -29rem;
+}
+
+.turnModal{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    position: absolute;
+    top:0;
+    display: flex;
+    justify-content: center;
+    align-items: : center;
+    z-index:3;
+}
+
+.cardBack{
+    width: 500px;
+    height: 200px;
+    background-color: white;
+    border-radius: 4px;
+    text-align: center;
+    padding: 20px;
+    margin: auto;
+}
+
+
+.regameModal {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    position: absolute;
+    top:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+.regame {
+    width: 400px;
+    height: 150px;
+    background-color: white;
+    border-radius: 4px;
+    text-align: center;
+    padding: 20px;
+    margin: auto;
+}
+
+.regameBtn {
+    margin:auto;
+    width: 100px;
+    height: 50px;
+}
+.continueBtn {
+    margin:auto;
+    width: 100px;
+    height: 50px;
+}
+
+.whoOne {
+    font-size: 20px;
+    margin-bottom: 20px
+}
+
+.cardTable{
+    animation: fadeIn 4s;
 }
 
 #player1 {
@@ -34,7 +150,7 @@ body{
     border-radius: 25px;
     border: 1px solid black;
     top: 6rem;
-    left: 11rem;
+    left: -17rem;
 }
 
 #player3 {
@@ -43,8 +159,8 @@ body{
     height: 100px;
     border-radius: 25px;
     border: 1px solid black;
-    top: 0rem;
-    left: -11rem;
+    top: -14rem;
+    left: 3rem;
 }
 
 #player4 {
@@ -53,8 +169,8 @@ body{
     height: 100px;
     border-radius: 25px;
     border: 1px solid black;
-    top: -14rem;
-    left: -3rem;
+    top: 0rem;
+    left: 11rem;
 }
 
 #table{
@@ -91,4 +207,20 @@ body{
     top: -23rem;
     left: 27rem;
     border: 1px solid black;
+}
+
+header{
+    animation: fadeIn 2s;
+}
+
+
+
+
+@keyframes fadeIn {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity:1;
+    }
 }

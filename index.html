@@ -7,21 +7,52 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-
+	<link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet">
 </head>
 <body>
 	<header>
 		<h1>Nim Type Zero</h1>
 	</header>
 
-
-
 	<main>
 
 
 
-		<div class="scoreBoard"></div>
+		<div class="scoreBoard">
+			Status
+			<div class="status">	
+			<div id='p1Score'>
+				<div id="p1Name">Player1</div>
+				<div id='p1won'>Win:</div>
+				<div id='p1lost'>Lost:</div>
+			</div>
+			<div id='p2Score'>
+				<div id="p2Name">Player2</div>
+				<div id='p2won'>Win:</div>
+				<div id='p2lost'>Lost:</div>
+			</div>
+			<div id='p3Score'>
+				<div id="p3Name">Player3</div>
+				<div id='p3won'>Win:</div>
+				<div id='p3lost'>Lost:</div>
+			</div>
+			<div id='p4Score'>
+				<div id="p4Name">Player4</div>
+				<div id='p4won'>Win:</div>
+				<div id='p4lost'>Lost:</div>
+			</div>
 
+			</div>
+
+		</div>
+	</main>
+
+	
+		<div class='turnModal'>
+			<div class='cardBack'>
+			<p>Please select one card</p>
+			</div>
+		</div>
 
 		<div class="cardTable">
 
@@ -34,10 +65,10 @@
 					</div>
 
 					<div class='hand'>
-						<div id="p1Card"></div>
-						<div id="p2Card"></div>
-						<div id="p3Card"></div>
-						<div id="p4Card"></div>
+						<div class='p1' id="p1Card"></div>
+						<div class='p2' id="p2Card"></div>
+						<div class='p3' id="p3Card"></div>
+						<div class='p4' id="p4Card"></div>
 					</div>
 					<div class='total'></div>
 			</div>
@@ -46,8 +77,34 @@
 
 		</div>
 
+
+
+		<div class='regameModal'>
+			<div class='regame'>
+				<div class='whoOne'></div>
+				<button class="continueBtn">Continue</button>
+			</div>
+		</regameModal>
+
+
 		
-	</main>
+
+		</div>
+		<div class="startModal">
+			<div class="askStart">
+				<p>Would you like to join the table?</p>
+				<button id='start'>Start</button>
+			</div>
+		</div>
+
+		<div class='gameOverModal'>
+			<div class="gameOver">
+				<div id="result"></div>
+				<button id='regame'>Re-try</button>
+			</div>
+		</div>
+		
+	
 
 
 
