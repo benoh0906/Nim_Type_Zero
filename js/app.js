@@ -6,11 +6,13 @@ function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
 
+let time = null
+
 function intervalFunc(num){
     let i = num
-        let time = setInterval(()=>{
+        time = setInterval(()=>{
             game.compPlay(i)
-            if (i === 3 || game.cumulative>=9){
+            if (i === 3 || game.cumulative>=10){
                 clearInterval(time)
             }
             else{
@@ -27,7 +29,7 @@ function compAI(index){
     for(let i = 0; i < game.players[index].hand.length;i++){
         const usedOrNot=document.querySelector(`#p${index+1}Card`).childNodes[i].src
         if(usedOrNot ==="file:///Users/jungbinoh/sei-autumn-sweaters/nim_type_zero/css/img/card/back.jpg"){
-            if (game.players[index].hand[i]+game.cumulative < 9){
+            if (game.players[index].hand[i]+game.cumulative < 10){
                 win.push([game.players[index].hand[i],i])
 
             } else {
@@ -114,8 +116,7 @@ const game = {
         let shuffleGil = shuffle(this.gilbreathDeck)
         let shuffleCard= shuffle(this.cards)
         this.finalDeck=this.gilbreathDeck.concat(this.cards)
-        // this.finalDeck.push(shuffle(this.gilbreathDeck))
-        // this.finalDeck.push(shuffle(this.cards))
+
     },
 
     distributeCards () {
@@ -162,9 +163,6 @@ const game = {
     //         $(e.target).attr('src',`css/img/card/${rndArray[ind]}.png`)
     //         myOrder=parseInt(rndArray[ind])
     //         console.log(myOrder)
-
-            
-
     //     })
 
     // },
@@ -173,10 +171,7 @@ const game = {
 
     revealCards(i,turn) {
 
-        // for( let i = 1; i< 4 ; i++){
-        //     document.querySelector(`#p${i+1}Card`).childNodes[turn].src=`css/img/card/${this.players[i].hand[turn]}.png`;
 
-        // }
         document.querySelector(`#p${i+1}Card`).childNodes[turn].src=`css/img/card/${this.players[i].hand[turn]}.png`;
     
     
@@ -189,8 +184,7 @@ const game = {
 
 
 
-        if(this.cumulative>=9){
-            // $(`.total`).html(`${this.players[serial].name} lost!`)
+        if(this.cumulative>=10){
             console.log(this.players[serial].name+' lost!')
             this.players[serial].loss+=1
 
@@ -211,7 +205,9 @@ const game = {
             } else{
                 this.turnCount+=1
             }
-            
+
+            clearInterval(time);
+            return true
             
         }
     },
@@ -219,45 +215,27 @@ const game = {
 
     mePlay(){
         console.log('mePlay starts')
+
         $p1Card=$(`#p1Card`);
         $p1Card.on('click',(e)=>{
 
         if($(e.target).css('opacity')!=0.5) {
-            game.playCards(0,$(e.target).index())
-            // game.players[0].turn+=1
-            $(e.target).css('opacity','0.5')
+           if(game.playCards(0,$(e.target).index())) {
+               return 
+           } else {
+                $(e.target).css('opacity','0.5')
+                intervalFunc(1)
+           }
+            
 
 
         
 
-        // for (let i=1;i<4;i++){
-        //     // if(game.cumulative <9){
-        //     //     let cardSelect = compAI(i)
-        //     //     game.playCards(i,cardSelect);
-        //     //     game.revealCards(i,cardSelect)
-
-        //     // }
-        //     this.compPlay(i)
-
-        // }
 
         console.log('interval starts')
 
-        intervalFunc(1)
+        
 
-        // let i = 1
-        // let time = setInterval(()=>{
-        //     console.log(`turn1 interval playing`)
-        //     this.compPlay(i)
-        //     if (i === 3 || this.cumulative>=9){
-                
-        //         clearInterval(time)
-        //     }
-        //     else{
-                
-        //         i++
-        //     }
-        // }, 1000)
         
         
     }
@@ -269,7 +247,10 @@ const game = {
     
 
     compPlay(i){
-        if(game.cumulative <9){
+        if(game.cumulative <10){
+            // $(`profile`).css('border','none')
+            // $(`#player${i}`).css('border','3px solid yellow')
+
             console.log(`comPlay activated`)
             let cardSelect = compAI(i)
             game.playCards(i,cardSelect);
@@ -281,80 +262,28 @@ const game = {
 
         if (this.turnCount===0){
             console.log(`turn 1 starts`)
-            $(`#player4`).css('border','none')
 
-            $(`#player1`).css('border','3px solid yellow')
-            
             this.mePlay()
                 
         } else if (this.turnCount===1){
             console.log(`turn 2 starts`)
-            $(`#player1`).css('border','none')
-            $(`#player2`).css('border','3px solid yellow')
 
 
-            // for (let i = 1; i <4;i++){
-            //     this.compPlay(i)
-            // }
             console.log('turn 2 interval starts')
 
             intervalFunc(1)
             this.mePlay()
-            // let i = 1
-            // let time = setInterval(()=>{
-                
-            //     if (i === 4 || this.cumulative>=9){
-            //         clearInterval(time)
-                    
-            //         this.mePlay()
-                    
-            //     }
-
-            //     else{
-            //         this.compPlay(i)
-            //         i++
-            //     }
-            // }, 1000)
-            
-            
 
             
 
         } else if (this.turnCount===2){
-            $(`#player2`).css('border','none')
-            $(`#player3`).css('border','3px solid yellow')
-            // for (let i = 2; i <4;i++){
-            //     this.compPlay(i)
-            // }
 
-            // let i = 2
-            // let time = setInterval(()=>{
-            //     this.compPlay(i)
-            //     if (i === 3|| this.cumulative>=9){
-            //         clearInterval(time)
-            //         this.mePlay()
-            //     }
-            //     i++
-            // }, 2000)
             intervalFunc(2)
             this.mePlay()
 
             
 
         } else if (this.turnCount===3){
-            $(`#player3`).css('border','none')
-            $(`#player4`).css('border','3px solid yellow')
-            // this.compPlay(3)
-
-            // let i = 3
-            // let time = setInterval(()=>{
-            //     this.compPlay(i)
-            //     if (i === 3 || this.cumulative>=9){
-            //         clearInterval(time)
-            //         this.mePlay()
-            //     }
-            //     i++
-            // }, 2000)
 
             intervalFunc(3)
             this.mePlay()
@@ -371,7 +300,8 @@ const game = {
             $(`#p${i+1}won`).text(`Win: ${this.players[i].win}`)
             $(`#p${i+1}lost`).text(`Loss: ${this.players[i].loss}`)
         }    
-        if(this.players[1].win===8 || this.players[2].win===10 ||this.players[3].win===10  ){
+        if(this.players[1].win===8 || this.players[2].win===8 ||this.players[3].win===8){
+            $(`.gameOverModal`).show()
             $(`#result`).text('Mission failure!')
             $(`#regame`).on(`click`,()=>{
                 location.reload()
@@ -425,7 +355,42 @@ $(`.regameModal`).hide();
 $(`.scoreBoard`).hide();
 $(`.cardTable`).hide()
 $(`header`).hide()
+$(`.ruleModal`).hide()
 
+
+$(`.startModal`).hide()
+
+$(`.storyModal`).hide()
+
+
+$(`#page1`).on('click', () =>{
+    $(`.introModal`).hide()
+    $(`.storyModal`).show()
+})
+
+
+
+$(`#page2`).on(`click`, ()=>{
+    $(`.storyModal`).hide()
+    $(`.ruleModal`).show()
+})
+
+$(`#backTo1`).on('click',()=>{
+    $(`.storyModal`).hide()
+    $(`.introModal`).show()
+})
+
+
+
+$(`#page3`).on(`click`, ()=>{
+    $(`.ruleModal`).hide()
+    $(`.startModal`).show()
+})
+
+$(`#backTo2`).on(`click`, ()=>{
+    $(`.ruleModal`).hide()
+    $(`.storyModal`).show()
+})
 
 
 $(`#start`).on('click',e=>{
@@ -443,6 +408,10 @@ $(`#start`).on('click',e=>{
     game.turnLocator()
 })
 
+$(`#page4`).on(`click`, ()=>{
+    $(`.startModal`).hide()
+    $(`.ruleModal`).show()
+})
 
 $(`.continueBtn`).on(`click`,()=>{
     $(`.regameModal`).hide()
@@ -452,31 +421,3 @@ $(`.continueBtn`).on(`click`,()=>{
 
 
 
-
-
-// $p1Card=$(`#p1Card`);
-// $p1Card.on('click',(e)=>{
-
-//     if($(e.target).css('opacity')!=0.5) {
-//         game.playCards(0,$(e.target).index())
-//         // game.players[0].turn+=1
-//         $(e.target).css('opacity','0.5')
-
-
-
-//         for (let i=1;i<4;i++){
-//             if(game.cumulative <9){
-//                 let cardSelect = compAI(i)
-//                 game.playCards(i,cardSelect);
-//                 game.revealCards(i,cardSelect)
-
-//             }
-//         }
-        
-//     }
-
-// });
-
-// $(`body`).on(`click`,(e) =>{
-//     console.log($(e.target).index())
-// })
