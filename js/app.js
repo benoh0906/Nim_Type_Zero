@@ -6,7 +6,7 @@ function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
 
-let time = null
+// let time = null
 
 function intervalFunc(num){
     let i = num
@@ -48,6 +48,74 @@ function compAI(index){
 
         return lose[0][1]
 
+    }
+}
+
+function conspireAI(index){
+    if (index===1){
+        const p4WinHigh=[]
+        const p4WinMid=[]
+        const p4WinLow=[]
+        const p4Lose=[]
+
+
+        for(let i = 0; i < game.players[index].hand.length;i++){
+            const usedOrNotCons1=document.querySelector(`#p${index+1}Card`).childNodes[i].src
+
+            if(usedOrNotCons1 ==="file:///Users/jungbinoh/sei-autumn-sweaters/nim_type_zero/css/img/card/back.jpg"){
+                if (game.players[index].hand[i]+3+game.cumulative < 10){
+                    p4WinHigh.push([game.players[index].hand[i],i])
+
+                } else if (game.players[index].hand[i]+2+game.cumulative < 10) {
+
+                    p4WinMid.push([game.players[index].hand[i],i])
+
+                } else if(game.players[index].hand[i]+1+game.cumulative < 10){
+                    p4WinLow.push([game.players[index].hand[i],i])
+                } else {
+                    p4Lose.push([game.players[index].hand[i],i])
+                }
+        
+            }
+        }
+
+        if(p4WinHigh.length>=1){
+            return p4WinHigh[0][1]
+        } else if (p4WinMid.length>=1){
+            return p4WinMid[0][1]
+        } else if (p4WinLow.length>=1){
+            return p4WinLow[0][1]
+        } else {
+            return p4Lose[0][1]
+        }
+
+    } else {
+        const win = []
+        const lose=[]
+        
+        for(let i = 0; i < game.players[index].hand.length;i++){
+            const usedOrNotCons2=document.querySelector(`#p${index+1}Card`).childNodes[i].src
+            if(usedOrNotCons2 ==="file:///Users/jungbinoh/sei-autumn-sweaters/nim_type_zero/css/img/card/back.jpg"){
+                if (game.players[index].hand[i]+game.cumulative < 10){
+                    win.push([game.players[index].hand[i],i])
+
+                } else {
+
+                    lose.push([game.players[index].hand[i],i])
+
+                }
+            }
+        }
+
+        if(win.length>=1){
+
+            return win[0][1]
+
+        } else{
+
+            return lose[0][1]
+
+        }
     }
 }
 
@@ -177,7 +245,10 @@ const game = {
     
     },
 
+
+
     playCards(serial,index){
+        console.log('playCard activated')
         this.cumulative+=this.players[serial].hand[index]
 
         $(`.total`).html(`${this.cumulative}`)
@@ -186,25 +257,13 @@ const game = {
 
         if(this.cumulative>=10){
             console.log(this.players[serial].name+' lost!')
-            this.players[serial].loss+=1
 
-            for (let i = 0; i <4; i++){
-                if (i !== serial){
-                    this.players[i].win+=1
-                }
-            }
 
             
             $(`.whoOne`).text(`${this.players[serial].name} lost!`)
             $(`.regameModal`).show()
             game.scoreBoard()
-            if (this.turnCount===3){
-                this.turnCount=0
-                this.roundCount+=1
-
-            } else{
-                this.turnCount+=1
-            }
+            
 
             clearInterval(time);
             return true
@@ -216,30 +275,21 @@ const game = {
     mePlay(){
         console.log('mePlay starts')
 
+        
+
         $p1Card=$(`#p1Card`);
         $p1Card.on('click',(e)=>{
-
-        if($(e.target).css('opacity')!=0.5) {
-           if(game.playCards(0,$(e.target).index())) {
-               return 
-           } else {
-                $(e.target).css('opacity','0.5')
-                intervalFunc(1)
-           }
-            
-
-
-        
-
-
-        console.log('interval starts')
-
-        
-
-        
-        
-    }
-    })
+            if($(e.target).css('opacity')!=0.5) {
+                if(game.playCards(0,$(e.target).index())) {
+                    return 
+                } else {
+                        $(e.target).css('opacity','0.5')
+                        intervalFunc(1)
+                }
+                    
+                console.log('interval starts')
+            }
+        })
     
 
     }, //end of meplay
@@ -250,44 +300,55 @@ const game = {
         if(game.cumulative <10){
             // $(`profile`).css('border','none')
             // $(`#player${i}`).css('border','3px solid yellow')
-
+            
             console.log(`comPlay activated`)
-            let cardSelect = compAI(i)
+            let cardSelect = conspireAI(i)
             game.playCards(i,cardSelect);
             game.revealCards(i,cardSelect)
         }
     },
 
-    turnLocator(){
+    roundLocator(){
 
-        if (this.turnCount===0){
-            console.log(`turn 1 starts`)
-
+        if (this.roundCount===0){
             this.mePlay()
                 
-        } else if (this.turnCount===1){
-            console.log(`turn 2 starts`)
+        } else if (this.roundCount===1){
 
-
-            console.log('turn 2 interval starts')
-
-            intervalFunc(1)
-            this.mePlay()
+            for (let i = 0; i <2;i++){
+                if(i===0){
+                    intervalFunc(1)
+                } else{
+                    this.mePlay()
+                }
+            }
+            
 
             
 
-        } else if (this.turnCount===2){
+        } else if (this.roundCount===2){
 
-            intervalFunc(2)
-            this.mePlay()
 
+            for (let i = 0; i <2;i++){
+                if(i===0){
+                    intervalFunc(2)
+                } else{
+                    this.mePlay()
+                }
+            }
             
 
-        } else if (this.turnCount===3){
 
-            intervalFunc(3)
-            this.mePlay()
+        } else if (this.roundCount===3){
 
+            for (let i = 0; i <2;i++){
+                if(i===0){
+                    intervalFunc(3)
+                } else{
+                    this.mePlay()
+                }
+            }
+            
 
             
             
@@ -303,15 +364,13 @@ const game = {
         if(this.players[1].win===8 || this.players[2].win===8 ||this.players[3].win===8){
             $(`.gameOverModal`).show()
             $(`#result`).text('Mission failure!')
-            $(`#regame`).on(`click`,()=>{
-                location.reload()
-            })
+            return 
+
         } else if(this.players[0].win===8 ) {
             $(`.gameOverModal`).show()
             $(`#result`).text('Mission complete!')
-            $(`#regame`).on(`click`,()=>{
-                location.reload()
-            })
+            return
+
         }
         
     },
@@ -339,7 +398,7 @@ const game = {
         game.gilbreathShuffle()
         game.distributeCards()
 
-        game.turnLocator()
+        game.roundLocator()
 
     }
 
@@ -368,6 +427,10 @@ $(`#page1`).on('click', () =>{
     $(`.storyModal`).show()
 })
 
+$(`#skip`).on('click', ()=>{
+    $(`.introModal`).hide()
+    $(`.startModal`).show()
+})
 
 
 $(`#page2`).on(`click`, ()=>{
@@ -405,7 +468,7 @@ $(`#start`).on('click',e=>{
     game.gilbreathShuffle()
     game.distributeCards()
 
-    game.turnLocator()
+    game.roundLocator()
 })
 
 $(`#page4`).on(`click`, ()=>{
@@ -413,8 +476,26 @@ $(`#page4`).on(`click`, ()=>{
     $(`.ruleModal`).show()
 })
 
+$(`#regame`).on(`click`,()=>{
+    location.reload()
+})
+
 $(`.continueBtn`).on(`click`,()=>{
     $(`.regameModal`).hide()
+    game.players[game.roundCount].loss+=1
+
+    for (let i = 0; i <4; i++){
+        if (i !== game.roundCount){
+            game.players[i].win+=1
+        }
+    }
+
+    if (game.roundCount===3){
+        game.roundCount=0
+
+    } else{
+        game.roundCount+=1
+    }
     game.reset()
 
 })
