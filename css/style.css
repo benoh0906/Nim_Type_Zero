@@ -398,12 +398,13 @@ header{
     justify-content: center;
     align-items: center;
     margin-top: 3rem;
+    margin-bottom: 3rem;
     
 }
 
 #iWill{
     display: block;
-    margin: 0 auto;
+    margin: 30px auto;
 }
 
 #dont{

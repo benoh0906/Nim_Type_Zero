@@ -156,6 +156,7 @@ const game = {
     finalDeck:[],
     turnCount:0,
     roundCount:0,
+    totalRound:0,
     loser:0,
 
     
@@ -235,21 +236,6 @@ const game = {
         }
     },
 
-    // decideTurn () {
-    //     for( let i = 0; i<4; i++){
-    //         $(`.cardBack`).append(`<img data-index=${i} width="100" height="130" src="css/img/card/back.jpg">`)
-    //     }
-    //     let rndArray=shuffle([0,1,2,3])
-    //     let myOrder=0
-    //     console.log(rndArray)
-    //     $(`.cardBack`).on('click', (e)=>{
-    //         const ind = $(e.target)[0].dataset.index
-    //         $(e.target).attr('src',`css/img/card/${rndArray[ind]}.png`)
-    //         myOrder=parseInt(rndArray[ind])
-    //         console.log(myOrder)
-    //     })
-
-    // },
 
 
 
@@ -281,15 +267,7 @@ const game = {
         }
     },
 
-    // dontPlay(){
-    //     console.log('dontplay activate')
-    //     $(`.playOrNot`).css('background-color','white')
-    // },
 
-    // nowPlay(){
-    //     console.log('nowplay activate')
-    //     $(`.playOrNot`).css('background-color','none')
-    // },
 
     mePlay(){
         $p1Card=$(`#p1Card`);
@@ -309,9 +287,7 @@ const game = {
 
     compPlay(i){
         if(game.cumulative <10){
-            // $(`profile`).css('border','none')
-            // $(`#player${i}`).css('border','3px solid yellow')
-            
+
             console.log(`comPlay activated`)
             let cardSelect = conspireAI(i)
             game.playCards(i,cardSelect);
@@ -362,24 +338,25 @@ const game = {
     },
 
     scoreBoard() {
-        $(`#currentRound`).text(`Round ${this.roundCount+1}`)
+        $(`#currentRound`).text(`Round ${this.totalRound+1}`)
         for(let i = 0; i<4;i++){
             $(`#p${i+1}Name`).text(`${this.players[i].name}`)
             $(`#p${i+1}won`).text(`Win: ${this.players[i].win}`)
             $(`#p${i+1}lost`).text(`Loss: ${this.players[i].loss}`)
         }    
-        if(this.roundCount===1){
-            if(this.players[0].win>this.players[1].win &&this.players[0].win>this.players[2].win&&this.players[0].win>this.players[3].win)
+        if(this.totalRound===8){
+            if(this.players[0].win>this.players[1].win &&this.players[0].win>this.players[2].win&&this.players[0].win>this.players[3].win){
             $(`.gameOverModal`).show()
             $(`#result`).html('Mission complete! <br>You won!')
             return 
+            
+            } else {
+                $(`.gameOverModal`).show()
 
-        } else {
-            $(`.gameOverModal`).show()
+                $(`#result`).html(`Mission failure!<br>Mafias used the prize money to <br>expand their dark businesses.`)
+                return
 
-            $(`#result`).html(`Mission failure!<br>Mafias used the prize money to <br>expand their dark businesses.`)
-            return
-
+            }
         }
         
     },
@@ -412,7 +389,6 @@ const game = {
 
 }
 
-// game.decideTurn();
 
 $(`.tempRuleModal`).hide()
 $(`.gameOverModal`).hide()
@@ -511,6 +487,7 @@ $(`.continueBtn`).on(`click`,()=>{
             game.players[i].win+=1
         }
     }
+    game.totalRound+=1
 
     if (game.roundCount===3){
         game.roundCount=0
@@ -532,7 +509,7 @@ $(`#helpSubmit`).on(`click`,()=>{
         // $(`.convinceModal`).hide()
         let briber=[]
         for (let i = 0; i<4;i++){
-            $(`#challenge1`).text('You better win')
+            $(`#challenge1`).text('Damon: You better win')
             $(`#helpMe`).hide()
             $(`#helpSubmit`).hide()
             $(`.convince`).append(`<img class="leak" width="70" height="90" src="css/img/card/${game.players[2].hand[i]}.png">`)
