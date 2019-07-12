@@ -1,6 +1,6 @@
 ## Nim Type Zero
 
-[Play Nim Type Zero](https://pages.git.generalassemb.ly/benoh0906/nim_type_zero/l)
+[Play Nim Type Zero](https://pages.git.generalassemb.ly/benoh0906/nim_type_zero/)
 
 ### Rule
 
