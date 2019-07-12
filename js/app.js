@@ -148,6 +148,7 @@ const game = {
     finalDeck:[],
     turnCount:0,
     roundCount:0,
+    loser:0,
 
     
 
@@ -157,6 +158,13 @@ const game = {
             this.players.push(new Player(`player${i+1}`))
         }
         console.log(this.players)
+    },
+
+    reName (){
+        this.players[0].name='Q'
+        this.players[1].name='Cassel'
+        this.players[0].name='Damon'
+        this.players[0].name='Mikkelsen'
     },
 
     cardsCreate() {
@@ -211,7 +219,7 @@ const game = {
         for(let j = 0; j<4;j++){
             for(let i = 0; i<4; i++){
                 if(j===0){
-                    $(`#p${j+1}Card`).append(`<img width="70" height="90" src="css/img/card/${this.players[j].hand[i]}.png">`)
+                    $(`#p${j+1}Card`).append(`<img class='playOrNot' width="70" height="90" src="css/img/card/${this.players[j].hand[i]}.png">`)
                 } else {
                     $(`#p${j+1}Card`).append(`<img width="70" height="90" src="css/img/card/back.jpg">`)
                 }
@@ -238,45 +246,46 @@ const game = {
 
 
     revealCards(i,turn) {
-
-
         document.querySelector(`#p${i+1}Card`).childNodes[turn].src=`css/img/card/${this.players[i].hand[turn]}.png`;
-    
-    
     },
 
 
 
     playCards(serial,index){
-        console.log('playCard activated')
+        
         this.cumulative+=this.players[serial].hand[index]
-
+        if (game.turnCount===3){
+            game.turnCount=0
+    
+        } else{
+            game.turnCount+=1
+        }
+        this.highlight()
         $(`.total`).html(`${this.cumulative}`)
-
-
+        
 
         if(this.cumulative>=10){
+            this.loser=(serial)
             console.log(this.players[serial].name+' lost!')
-
-
-            
             $(`.whoOne`).text(`${this.players[serial].name} lost!`)
             $(`.regameModal`).show()
             game.scoreBoard()
-            
-
             clearInterval(time);
             return true
-            
         }
     },
 
+    // dontPlay(){
+    //     console.log('dontplay activate')
+    //     $(`.playOrNot`).css('background-color','white')
+    // },
+
+    // nowPlay(){
+    //     console.log('nowplay activate')
+    //     $(`.playOrNot`).css('background-color','none')
+    // },
 
     mePlay(){
-        console.log('mePlay starts')
-
-        
-
         $p1Card=$(`#p1Card`);
         $p1Card.on('click',(e)=>{
             if($(e.target).css('opacity')!=0.5) {
@@ -290,11 +299,7 @@ const game = {
                 console.log('interval starts')
             }
         })
-    
-
     }, //end of meplay
-        
-    
 
     compPlay(i){
         if(game.cumulative <10){
@@ -308,13 +313,17 @@ const game = {
         }
     },
 
-    roundLocator(){
+    highlight(){
+        $(`.mugshot`).css(`border`,`none`)
+        $(`#player${game.turnCount+1}`).css(`border`,`3px solid yellow`)
+    },
 
+    roundLocator(){
         if (this.roundCount===0){
+            this.highlight()
             this.mePlay()
                 
         } else if (this.roundCount===1){
-
             for (let i = 0; i <2;i++){
                 if(i===0){
                     intervalFunc(1)
@@ -322,13 +331,8 @@ const game = {
                     this.mePlay()
                 }
             }
-            
-
-            
 
         } else if (this.roundCount===2){
-
-
             for (let i = 0; i <2;i++){
                 if(i===0){
                     intervalFunc(2)
@@ -337,21 +341,14 @@ const game = {
                 }
             }
             
-
-
         } else if (this.roundCount===3){
-
             for (let i = 0; i <2;i++){
                 if(i===0){
                     intervalFunc(3)
                 } else{
                     this.mePlay()
                 }
-            }
-            
-
-            
-            
+            } 
         }
     },
 
@@ -363,7 +360,7 @@ const game = {
         }    
         if(this.players[1].win===8 || this.players[2].win===8 ||this.players[3].win===8){
             $(`.gameOverModal`).show()
-            $(`#result`).text('Mission failure!')
+            $(`#result`).html(`Mission failure!<br>Mafias used the prize money to <br>expand their dark businesses.`)
             return 
 
         } else if(this.players[0].win===8 ) {
@@ -374,9 +371,6 @@ const game = {
         }
         
     },
-        
-
-
 
     reset(){
 
@@ -384,6 +378,7 @@ const game = {
         this.cards=[]
         this.gilbreathDeck=[]
         this.finalDeck=[]
+        this.turnCount=this.roundCount;
         $(`.total`).html(`${this.cumulative}`)
 
         for(let i = 0; i<4; i++){
@@ -410,12 +405,13 @@ $(`.gameOverModal`).hide()
 $(`.turnModal`).hide()
 
 $(`.regameModal`).hide();
-
+$(`.convinceModal`).hide();
 $(`.scoreBoard`).hide();
 $(`.cardTable`).hide()
 $(`header`).hide()
 $(`.ruleModal`).hide()
 
+$(`dont`).hide()
 
 $(`.startModal`).hide()
 
@@ -456,6 +452,7 @@ $(`#backTo2`).on(`click`, ()=>{
 })
 
 
+
 $(`#start`).on('click',e=>{
     $(`.startModal`).hide()
     $(`.scoreBoard`).show();
@@ -463,6 +460,7 @@ $(`#start`).on('click',e=>{
     $(`header`).show()
     
     game.playersCreate()
+    game.reName()
     game.cardsCreate()
     game.gilbreathCreate()
     game.gilbreathShuffle()
@@ -482,10 +480,10 @@ $(`#regame`).on(`click`,()=>{
 
 $(`.continueBtn`).on(`click`,()=>{
     $(`.regameModal`).hide()
-    game.players[game.roundCount].loss+=1
+    game.players[game.loser].loss+=1
 
     for (let i = 0; i <4; i++){
-        if (i !== game.roundCount){
+        if (i !== game.loser){
             game.players[i].win+=1
         }
     }
@@ -500,5 +498,26 @@ $(`.continueBtn`).on(`click`,()=>{
 
 })
 
+$(`#player3`).on('click',()=>{
+    $(`.convinceModal`).show()
+})
 
+$(`#helpSubmit`).on(`click`,()=>{
+    console.log('helpsubmit works')
+    if ($(`#helpMe`).val()==='sos'){
+        // $(`.convinceModal`).hide()
+        let briber=[]
+        for (let i = 0; i<4;i++){
+            $(`#challenge1`).text('You better win')
+            $(`#helpMe`).hide()
+            $(`#helpSubmit`).hide()
+            $(`.convince`).append(`<img class="leak" width="70" height="90" src="css/img/card/${game.players[2].hand[i]}.png">`)
+            
+        }
+        $(`.convince`).append(`<button id='iWill'>Thank You</button>`)
+    }
+    $(`#iWill`).on(`click`,()=>{
+        $(`.convinceModal`).hide()
+    })
+})
 
