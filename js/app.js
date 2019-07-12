@@ -6,7 +6,6 @@ function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
 
-// let time = null
 
 function intervalFunc(num){
     let i = num
@@ -503,9 +502,7 @@ $(`#player3`).on('click',()=>{
 })
 
 $(`#helpSubmit`).on(`click`,()=>{
-    console.log('helpsubmit works')
     if ($(`#helpMe`).val()==='sos'){
-        // $(`.convinceModal`).hide()
         let briber=[]
         for (let i = 0; i<4;i++){
             $(`#challenge1`).text('Damon: You better win')

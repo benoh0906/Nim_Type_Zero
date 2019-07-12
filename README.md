@@ -1,5 +1,7 @@
 ## Nim Type Zero
 
+[Play Nim Type Zero](index.html)
+
 ### Rule
 
 1. The game is played with a deck of 40 cards, labeled with number 0, 1, 2, 3.
