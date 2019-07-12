@@ -410,12 +410,15 @@ const game = {
 }
 
 // game.decideTurn();
+
+$(`.tempRuleModal`).hide()
 $(`.gameOverModal`).hide()
 $(`.turnModal`).hide()
 
 $(`.regameModal`).hide();
 $(`.convinceModal`).hide();
 $(`.scoreBoard`).hide();
+$(`#showRule`).hide()
 $(`.cardTable`).hide()
 $(`header`).hide()
 $(`.ruleModal`).hide()
@@ -465,6 +468,7 @@ $(`#backTo2`).on(`click`, ()=>{
 $(`#start`).on('click',e=>{
     $(`.startModal`).hide()
     $(`.scoreBoard`).show();
+    $(`#showRule`).show()
     $(`.cardTable`).show()
     $(`header`).show()
     
@@ -476,6 +480,14 @@ $(`#start`).on('click',e=>{
     game.distributeCards()
 
     game.roundLocator()
+})
+
+$(`#showRule`).on(`click`,()=>{
+    $(`.tempRuleModal`).show()
+})
+
+$(`#ruleClose`).on(`click`,()=>{
+    $(`.tempRuleModal`).hide()
 })
 
 $(`#page4`).on(`click`, ()=>{
