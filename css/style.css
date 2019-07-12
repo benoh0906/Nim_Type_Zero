@@ -112,7 +112,7 @@ body{
     top:0;
     justify-content: center;
     align-items: center;
-    z-index:3;
+    z-index:4;
 }
 
 .rule{
@@ -131,7 +131,7 @@ body{
 
 .tempRule{
     position: relative;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 1);
     font-size: 19px;
     color: black;
     width: 800px;
@@ -140,6 +140,8 @@ body{
     text-align: center;
     padding: 20px;
     margin: auto;
+    border: 1px solid black;
+
 }
 
 .p2Btn{

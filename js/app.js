@@ -138,7 +138,7 @@ class Player {
         this.win=0;
         this.loss=0;
         this.turn=0;
-        this.ally=false;
+        
     }
 }
 
