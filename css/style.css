@@ -19,6 +19,10 @@ body{
     
 }
 
+#retry{
+    margin-top: 10px;
+}
+
 #title{
     font-size: 100px;
     color: white;
@@ -174,7 +178,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: : center;
-    z-index:2;
+    z-index:4;
 }
 
 .gameOver{

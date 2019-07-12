@@ -362,19 +362,22 @@ const game = {
     },
 
     scoreBoard() {
+        $(`#currentRound`).text(`Round ${this.roundCount+1}`)
         for(let i = 0; i<4;i++){
             $(`#p${i+1}Name`).text(`${this.players[i].name}`)
             $(`#p${i+1}won`).text(`Win: ${this.players[i].win}`)
             $(`#p${i+1}lost`).text(`Loss: ${this.players[i].loss}`)
         }    
-        if(this.players[1].win===8 || this.players[2].win===8 ||this.players[3].win===8){
+        if(this.roundCount===1){
+            if(this.players[0].win>this.players[1].win &&this.players[0].win>this.players[2].win&&this.players[0].win>this.players[3].win)
             $(`.gameOverModal`).show()
-            $(`#result`).html(`Mission failure!<br>Mafias used the prize money to <br>expand their dark businesses.`)
+            $(`#result`).html('Mission complete! <br>You won!')
             return 
 
-        } else if(this.players[0].win===8 ) {
+        } else {
             $(`.gameOverModal`).show()
-            $(`#result`).text('Mission complete!')
+
+            $(`#result`).html(`Mission failure!<br>Mafias used the prize money to <br>expand their dark businesses.`)
             return
 
         }
@@ -495,7 +498,7 @@ $(`#page4`).on(`click`, ()=>{
     $(`.ruleModal`).show()
 })
 
-$(`#regame`).on(`click`,()=>{
+$(`#retry`).on(`click`,()=>{
     location.reload()
 })
 

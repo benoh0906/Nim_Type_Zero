@@ -1,41 +1,41 @@
-# nim_type_zero
+## Nim Type Zero
 
-Rule
-- The game is played with a deck of 40 cards, labeled with number 0, 1, 2, 3.
-- The deck is shuffled and the cards are dealt to each player.
-- Players start betting with chips before the game starts, and can call, raise, or fold in relation to the bet.
-- The game starts with each player having four cards in their hand not revealed to their opponents.
-- At a player's turn, they must play a card from their hand by declaring its number and placing it down on the table. 
-- The card's value is added to the total value.
-- If the total value exceeds 9, the player loses their bet.
+###Rule
+1. The game is played with a deck of 40 cards, labeled with number 0, 1, 2, 3.
+2. The deck is shuffled using Gilbreath Shuffle 
+3. 4 cards are dealt to each player.
+4. The game starts with each player having four cards in their hand not revealed to their opponents.
+5. The players play 8 rounds, and the starting player changes every turn
+6. At a player's turn, one must play a card from their hand by declaring its number and placing it down on the table.
+7. The card's value is added to the total value.
+8. If the player adds the card that makes the total value exceeding 9, the player loses the round.
 
-Gilbreath shuffle
+
+###Gilbreath shuffle
+
 - A way to shuffle decks that ensures that with a deck of 4 different suits, each 4 cards will always feature all suits.
 - Since the suits in this game are instead the values 0, 1, 2, 3 in simple terms it means that in every game there were a total of four of each number, redistributed randomly. 
 
 
-User journey
+###User journey
 
-Story:
-- The player's goal is to prevent the evil mafia boss from earning the specific amount of money from gambling. 
-- The game that the gamblers will play is Nim Type Zero, which the player has to win in order to stop the evil mafia bosses
-- Once the mafia boss wins enough money, he will purchase the bomb and use it against regular citizens
-- Among three other opponenents, there is one mafia boss. The player has to collaborate with the other two players to win against the enemey
-- The way to collaborate with players is to present correct answer for the quiz or to bribe them
+**Story:**
 
+- The player's goal is to prevent the evil mafia bosses from earning the prize money from the gambling tournament. 
+- The game that the gamblers will play is called Nim Type Zero, which the player has to win in order to stop the evil mafia bosses
+- The player's mission is to win the competition in order to prevent madia families from expanding their business
 
-Tutorial:
+**Tutorial:**
+
 - Tutorial of how to play the game
     - Modals with an arrow to flip the page
-    - Skip button below
+    - Skip button below to head straight to the game
 
-Page template:
-- At the center of the page, the image of the table with four players around it
-    - the center of the table shows the total count of the number that players handed in
-    - When the number hits higher than 9, the loser is decided
-- At the top, the scoreboard of how many wins and losses each player had
-    - One the mafia boss wins 10 times, the player loses
-- At the bottom, the player's hand and possessing cards
+**Game Page template:**
+
+- Scoreboard
+	- The scoreboard that shows how many wins and losses all players have
+	- 
 
 
 Game play:
