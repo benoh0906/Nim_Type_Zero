@@ -162,15 +162,207 @@ roundLocator(){
 ```
 
 
-- According to the rule, four players take turns to start the round because the starting player has higher change of winning the game.
-- the roundCount constructor in the game object keeps track of which player to start the game for each round.
+According to the rule, four players take turns to start the round because the starting player has higher change of winning the game.
 
+roundLocator() method in the game object verifies the order.
+
+- this.roundCount ()
+	- keeps track of which player to start the game for each round.
+
+- this.highlight ()
+	- higlights the profile of the player that player the game
+
+```
+highlight(){
+        $(`.mugshot`).css(`border`,`none`)
+        $(`#player${game.turnCount+1}`).css(`border`,`3px solid yellow`)
+    },
+```
 
 
 ## Human-like Mafia Bosses
 
-- This game attempts to add the human attributes to mafia bosses which are essentially the computer
-- 
+This game attempts to add the human attributes to mafia bosses which are essentially the computer
+
+**game.playCards**
+
+```
+playCards(serial,index){
+        this.cumulative+=this.players[serial].hand[index]
+        if (game.turnCount===3){
+            game.turnCount=0
+    
+        } else{
+            game.turnCount+=1
+        }
+        $(`.total`).html(`${this.cumulative}`)
+        
+
+        if(this.cumulative>=10){
+            this.loser=(serial)
+            console.log(this.players[serial].name+' lost!')
+            $(`.whoOne`).text(`${this.players[serial].name} lost!`)
+            $(`.regameModal`).show()
+            game.scoreBoard()
+            clearInterval(time);
+            return true
+        }
+    }
+```
+The method that adds the card's value to the center of the game.
+
+Keeps track of the turn of the game to define whose turn was it to play.
+
+If somebody adds the card value that makes the total value exceeding 9, this method declares the player as the looser.
+
+- parameters
+	- serial: the index number of the player in the players array
+	- index: the type of card that the player adds to the total value
+
+
+**Interval Func**
+
+```
+
+function intervalFunc(num){
+    let i = num
+    if(i===1 || i===2 ){
+        $(`#dont`).show()
+        
+    } 
+    game.highlight()
+    time = setInterval(()=>{
+        game.compPlay(i)
+        game.highlight()
+
+        if (i === 3 || game.cumulative>=10){
+            $(`#dont`).hide()
+            clearInterval(time)
+        }
+        else{
+            i++
+        }
+    }, 1000)
+}
+```
+- Slows down the pace of the mafia bosses playing the game so the player can keep track of the game flow like a real card game
+
+
+**Conspire AI**
+
+```
+
+function conspireAI(index){
+    if (index===1){
+        const p4WinHigh=[]
+        const p4WinMid=[]
+        const p4WinLow=[]
+        const p4Lose=[]
+
+        for(let i = 0; i < game.players[index].hand.length;i++){
+            const usedOrNotCons1=document.querySelector(`#p${index+1}Card`).childNodes[i].src
+
+            if(usedOrNotCons1 ==="file:///Users/jungbinoh/sei-autumn-sweaters/nim_type_zero/css/img/card/back.jpg"){
+                if (game.players[index].hand[i]+3+game.cumulative < 10){
+                    p4WinHigh.push([game.players[index].hand[i],i])
+
+                } else if (game.players[index].hand[i]+2+game.cumulative < 10) {
+
+                    p4WinMid.push([game.players[index].hand[i],i])
+
+                } else if(game.players[index].hand[i]+1+game.cumulative < 10){
+                    p4WinLow.push([game.players[index].hand[i],i])
+                } else {
+                    p4Lose.push([game.players[index].hand[i],i])
+                }
+        
+            }
+        }
+
+        if(p4WinHigh.length>=1){
+            return p4WinHigh[0][1]
+        } else if (p4WinMid.length>=1){
+            return p4WinMid[0][1]
+        } else if (p4WinLow.length>=1){
+            return p4WinLow[0][1]
+        } else {
+            return p4Lose[0][1]
+        }
+
+    } else {
+        const win = []
+        const lose=[]
+        
+        for(let i = 0; i < game.players[index].hand.length;i++){
+            const usedOrNotCons2=document.querySelector(`#p${index+1}Card`).childNodes[i].src
+            if(usedOrNotCons2 ==="file:///Users/jungbinoh/sei-autumn-sweaters/nim_type_zero/css/img/card/back.jpg"){
+                if (game.players[index].hand[i]+game.cumulative < 10){
+                    win.push([game.players[index].hand[i],i])
+
+                } else {
+
+                    lose.push([game.players[index].hand[i],i])
+
+                }
+            }
+        }
+
+        if(win.length>=1){
+
+            return win[0][1]
+
+        } else{
+
+            return lose[0][1]
+
+        }
+    }
+}
+```
+
+The algorithm that determines what card the mafia boss has to play in order for them to win the game.
+
+The algorithm accepts the list of cards on hand as the prameters.
+
+Adds the value of the card on their hand to the current total value, and categorize them as winning or losing card array.
+
+However, Cassel is made in a way that helps Mikkelson to win. Therefore, he will not play the card that can potentially lead Mikkelson to loose. He does so by categorizing his cards into the level of danger that can be posed to Mikkelson.
+
+
+**Ask for Help**
+
+```
+
+$(`#player3`).on('click',()=>{
+    $(`.convinceModal`).show()
+})
+
+$(`#helpSubmit`).on(`click`,()=>{
+    if ($(`#helpMe`).val()==='sos'){
+        // $(`.convinceModal`).hide()
+        let briber=[]
+        for (let i = 0; i<4;i++){
+            $(`#challenge1`).text('Damon: You better win')
+            $(`#helpMe`).hide()
+            $(`#helpSubmit`).hide()
+            $(`.convince`).append(`<img class="leak" width="70" height="90" src="css/img/card/${game.players[2].hand[i]}.png">`)
+            
+        }
+        $(`.convince`).append(`<button id='iWill'>Thank You</button>`)
+    }
+    $(`#iWill`).on(`click`,()=>{
+        $(`.convinceModal`).hide()
+    })
+})
+```
+
+
+The player can ask for help to Damon.
+
+When the player clicks the profile of Damon, the player at the top side of the table, the modal shows up that receives the string input value.
+
+When the player types 'sos' in the input and click the button, Damon will display what card he has.
+
 
 
 
