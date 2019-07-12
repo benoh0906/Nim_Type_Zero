@@ -512,6 +512,8 @@ $(`#helpSubmit`).on(`click`,()=>{
             
         }
         $(`.convince`).append(`<button id='iWill'>Thank You</button>`)
+    } else{
+        $(`.convinceModal`).hide()
     }
     $(`#iWill`).on(`click`,()=>{
         $(`.convinceModal`).hide()
