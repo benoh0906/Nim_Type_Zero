@@ -289,7 +289,7 @@ body{
     height: 100px;
     border-radius: 25px;
     border: 1px solid black;
-    top: -3rem;
+    top: -3.25rem;
     left: 16rem;
 }
 
@@ -324,7 +324,7 @@ body{
 
 #p4Card{
     position: relative;
-    top: -20rem;
+    top: -20.5rem;
     left: 19rem;
     border: 1px solid black;
 }
@@ -384,8 +384,8 @@ header{
     position: relative;
     width: 280px;
     height: 85px;
-    background-color: rgba(255, 255, 255, 1);
-    top: -15rem;
+    background-color: rgba(255, 255, 255, 0);
+    top: -20rem;
     left: 5rem;
 }
 

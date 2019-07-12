@@ -10,15 +10,23 @@ function getRndInteger(min, max) {
 
 function intervalFunc(num){
     let i = num
-        time = setInterval(()=>{
-            game.compPlay(i)
-            if (i === 3 || game.cumulative>=10){
-                clearInterval(time)
-            }
-            else{
-                i++
-            }
-        }, 1000)
+    if(i===1 || i===2 ){
+        $(`#dont`).show()
+        
+    } 
+    game.highlight()
+    time = setInterval(()=>{
+        game.compPlay(i)
+        game.highlight()
+
+        if (i === 3 || game.cumulative>=10){
+            $(`#dont`).hide()
+            clearInterval(time)
+        }
+        else{
+            i++
+        }
+    }, 1000)
 }
 
 function compAI(index){
@@ -123,8 +131,8 @@ function conspireAI(index){
 
 
 class Player {
-    constructor(name){
-        this.name=name;
+    constructor(){
+        this.name='';
         this.hand=[];
         this.used=[];
         this.win=0;
@@ -155,7 +163,7 @@ const game = {
 
     playersCreate () {
         for (let i = 0; i <4; i++){
-            this.players.push(new Player(`player${i+1}`))
+            this.players.push(new Player())
         }
         console.log(this.players)
     },
@@ -163,8 +171,8 @@ const game = {
     reName (){
         this.players[0].name='Q'
         this.players[1].name='Cassel'
-        this.players[0].name='Damon'
-        this.players[0].name='Mikkelsen'
+        this.players[2].name='Damon'
+        this.players[3].name='Mikkelsen'
     },
 
     cardsCreate() {
@@ -252,7 +260,6 @@ const game = {
 
 
     playCards(serial,index){
-        
         this.cumulative+=this.players[serial].hand[index]
         if (game.turnCount===3){
             game.turnCount=0
@@ -260,7 +267,6 @@ const game = {
         } else{
             game.turnCount+=1
         }
-        this.highlight()
         $(`.total`).html(`${this.cumulative}`)
         
 
@@ -328,6 +334,7 @@ const game = {
                 if(i===0){
                     intervalFunc(1)
                 } else{
+                    this.highlight()
                     this.mePlay()
                 }
             }
@@ -337,6 +344,7 @@ const game = {
                 if(i===0){
                     intervalFunc(2)
                 } else{
+                    this.highlight()
                     this.mePlay()
                 }
             }
@@ -346,6 +354,7 @@ const game = {
                 if(i===0){
                     intervalFunc(3)
                 } else{
+                    this.highlight()
                     this.mePlay()
                 }
             } 
@@ -411,7 +420,7 @@ $(`.cardTable`).hide()
 $(`header`).hide()
 $(`.ruleModal`).hide()
 
-$(`dont`).hide()
+$(`#dont`).hide()
 
 $(`.startModal`).hide()
 
