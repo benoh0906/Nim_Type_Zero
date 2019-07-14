@@ -28,35 +28,6 @@ function intervalFunc(num){
     }, 1000)
 }
 
-function compAI(index){
-
-    const win = []
-    const lose=[]
-    
-    for(let i = 0; i < game.players[index].hand.length;i++){
-        const usedOrNot=document.querySelector(`#p${index+1}Card`).childNodes[i].src
-        if(usedOrNot ==="file:///Users/jungbinoh/sei-autumn-sweaters/nim_type_zero/css/img/card/back.jpg"){
-            if (game.players[index].hand[i]+game.cumulative < 10){
-                win.push([game.players[index].hand[i],i])
-
-            } else {
-
-                lose.push([game.players[index].hand[i],i])
-
-            }
-        }
-    }
-
-    if(win.length>=1){
-
-        return win[0][1]
-
-    } else{
-
-        return lose[0][1]
-
-    }
-}
 
 function conspireAI(index){
     if (index===1){
@@ -67,7 +38,6 @@ function conspireAI(index){
 
 
         for(let i = 0; i < game.players[index].hand.length;i++){
-            // const usedOrNotCons1=document.querySelector(`#p${index+1}Card`).childNodes[i].src
             const usedOrNotCons1=$(`#p${index+1}Card`).children()[0].id
 
             if(usedOrNotCons1 ==='back'){
@@ -102,7 +72,6 @@ function conspireAI(index){
         const lose=[]
         
         for(let i = 0; i < game.players[index].hand.length;i++){
-            // const usedOrNotCons2=document.querySelector(`#p${index+1}Card`).childNodes[i].src
             const usedOrNotCons2=$(`#p${index+1}Card`).children()[0].id
             if(usedOrNotCons2 ==='back'){
                 if (game.players[index].hand[i]+game.cumulative < 10){
@@ -240,7 +209,8 @@ const game = {
 
 
     revealCards(i,turn) {
-        document.querySelector(`#p${i+1}Card`).childNodes[turn].src=`css/img/card/${this.players[i].hand[turn]}.png`;
+        // document.querySelector(`#p${i+1}Card`).childNodes[turn].src=`css/img/card/${this.players[i].hand[turn]}.png`;
+        $(`#p${i+1}Card`).children()[turn].src=`css/img/card/${this.players[i].hand[turn]}.png`
     },
 
 
@@ -389,11 +359,10 @@ const game = {
 
 }
 
-
+//hiding modals
 $(`.tempRuleModal`).hide()
 $(`.gameOverModal`).hide()
 $(`.turnModal`).hide()
-
 $(`.regameModal`).hide();
 $(`.convinceModal`).hide();
 $(`.scoreBoard`).hide();
@@ -401,14 +370,11 @@ $(`#showRule`).hide()
 $(`.cardTable`).hide()
 $(`header`).hide()
 $(`.ruleModal`).hide()
-
 $(`#dont`).hide()
-
 $(`.startModal`).hide()
-
 $(`.storyModal`).hide()
 
-
+//game page 1
 $(`#page1`).on('click', () =>{
     $(`.introModal`).hide()
     $(`.storyModal`).show()
@@ -419,6 +385,7 @@ $(`#skip`).on('click', ()=>{
     $(`.startModal`).show()
 })
 
+//game page 2
 
 $(`#page2`).on(`click`, ()=>{
     $(`.storyModal`).hide()
@@ -431,7 +398,7 @@ $(`#backTo1`).on('click',()=>{
 })
 
 
-
+//game page 3
 $(`#page3`).on(`click`, ()=>{
     $(`.ruleModal`).hide()
     $(`.startModal`).show()
@@ -442,8 +409,13 @@ $(`#backTo2`).on(`click`, ()=>{
     $(`.storyModal`).show()
 })
 
+//game page 4
+$(`#page4`).on(`click`, ()=>{
+    $(`.startModal`).hide()
+    $(`.ruleModal`).show()
+})
 
-
+//starting the real game
 $(`#start`).on('click',e=>{
     $(`.startModal`).hide()
     $(`.scoreBoard`).show();
@@ -461,6 +433,7 @@ $(`#start`).on('click',e=>{
     game.roundLocator()
 })
 
+//showing the rule modal
 $(`#showRule`).on(`click`,()=>{
     $(`.tempRuleModal`).show()
 })
@@ -469,14 +442,43 @@ $(`#ruleClose`).on(`click`,()=>{
     $(`.tempRuleModal`).hide()
 })
 
-$(`#page4`).on(`click`, ()=>{
-    $(`.startModal`).hide()
-    $(`.ruleModal`).show()
+
+//secret help from player3
+
+function damonHelp(){    
+    for (let i = 0; i<4;i++){
+        $(`#challenge1`).text('Damon: You better win')
+        $(`#helpMe`).hide()
+        $(`#helpSubmit`).hide()
+        $(`#showCards`).append(`<img class="leak" width="70" height="90" src="css/img/card/${game.players[2].hand[i]}.png">`)
+    }
+}
+
+$(`#player3`).on('click',()=>{
+    $(`.convinceModal`).show()
 })
 
-$(`#retry`).on(`click`,()=>{
-    location.reload()
+$(`#helpSubmit`).on(`click`,()=>{
+    if ($(`#helpMe`).val()==='sos'){
+        let briber=[]
+        damonHelp();
+        $(`#showCards`).append(`<button id='iWill'>Thank You</button>`)
+    } else{
+        $(`.convinceModal`).hide()
+    }
+    $(`#iWill`).on(`click`,()=>{
+        $(`.convinceModal`).hide()
+
+        $(`#challenge1`).text('Damon: What do you want?')
+        $(`#helpMe`).show()
+        $(`#helpSubmit`).show()
+        $(`#showCards`).empty()
+    })
 })
+
+
+
+//continuing the game every round
 
 $(`.continueBtn`).on(`click`,()=>{
     $(`.regameModal`).hide()
@@ -499,26 +501,9 @@ $(`.continueBtn`).on(`click`,()=>{
 
 })
 
-$(`#player3`).on('click',()=>{
-    $(`.convinceModal`).show()
-})
 
-$(`#helpSubmit`).on(`click`,()=>{
-    if ($(`#helpMe`).val()==='sos'){
-        let briber=[]
-        for (let i = 0; i<4;i++){
-            $(`#challenge1`).text('Damon: You better win')
-            $(`#helpMe`).hide()
-            $(`#helpSubmit`).hide()
-            $(`.convince`).append(`<img class="leak" width="70" height="90" src="css/img/card/${game.players[2].hand[i]}.png">`)
-            
-        }
-        $(`.convince`).append(`<button id='iWill'>Thank You</button>`)
-    } else{
-        $(`.convinceModal`).hide()
-    }
-    $(`#iWill`).on(`click`,()=>{
-        $(`.convinceModal`).hide()
-    })
-})
 
+//when the game finishes
+$(`#retry`).on(`click`,()=>{
+    location.reload()
+})

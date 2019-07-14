@@ -1,53 +1,47 @@
 ## Nim Type Zero
 
-![MacDown Screenshot](screenshot/main.png)
+
+[Play Nim Type Zero](https://pages.git.generalassemb.ly/benoh0906/nim_type_zero/)
 
 
 ## Motivation
 
-This project starts with an ambition to integrate a simple card game with the AI algorithm that blends in with the story. This game therefore includes the story board, secretive computer behaviors and hidden features that the player needs to find in order to win the game.
+This project carries an ambition to integrate a card game with thecomputer player AI algorithm that plays specific roles according to the story. This game therefore includes the story board, secretive computer behaviors and hidden features that the player needs to find in order to win the game.
 
-[Play Nim Type Zero](https://pages.git.generalassemb.ly/benoh0906/nim_type_zero/)
+## Wireframe
 
-### Rule
+### Story Modals
 
-1. The game is played with a deck of 40 cards, labeled with number 0, 1, 2, 3.
-2. The deck is shuffled using Gilbreath Shuffle 
-3. 4 cards are dealt to each player.
-4. The game starts with each player having four cards in their hand not revealed to their opponents.
-5. The players play 8 rounds, and the starting player changes every turn
-6. At a player's turn, one must play a card from their hand by declaring its number and placing it down on the table.
-7. The card's value is added to the total value.
-8. If the player adds the card that makes the total value exceeding 9, the player loses the round.
+Opening
+![main screenshot](screenshot/main.png)
 
+- >>: leads to the next page.
+- skip: skips the story and tutorial, goes straight to the 'start' page.
 
-Gilbreath shuffle
+Mission
+![mission screenshot](screenshot/mission.png)
 
-- A way to shuffle decks that ensures that with a deck of 4 different suits, each 4 cards will always feature all suits.
-- Since the suits in this game are instead the values 0, 1, 2, 3 in simple terms it means that in every game there were a total of four of each number, redistributed randomly. 
+- Description of the story of the game.
+- >>: leads to the next page.
+- <<: leads to the previous page.
 
+Rule
+![rule screenshot](screenshot/rule.png)
 
-### User journey
+- Description of the rule of the game.
 
-**Story:**
+Start
+![start screenshot](screenshot/start.png)
 
-- The player's goal is to prevent the evil mafia bosses from earning the prize money from the gambling tournament
-- The player is called Agent Q, playing against three mafia family bosses called Cassel, Damon, and Mikkelsen
-- The game that the gamblers will play is called Nim Type Zero, which the player has to win in order to stop the evil mafia bosses
-- The player's mission is to win the competition in order to prevent madia families from expanding their business
+- Start: starts the real game
+- Can access to this modal through the 'skip' button on the opening page.
 
-**Tutorial:**
-
-- Tutorial of how to play the game
-    - Modals with an arrow to flip the page
-    - Skip button below to head straight to the game
-
-
-**Game Page template:**
+### Game
+![game screenshot](screenshot/game.png)
 
 Scoreboard
 
-- Displays how many wins and losses all players have
+- Displays the number of wins and losses for all players
 - Displays the current round
 
 Rule Button
@@ -79,6 +73,47 @@ Player Profile
     left: 5rem;
 	}
 ```
+
+
+## Game
+### Rule
+
+1. The game is played with a deck of 40 cards, labeled with number 0, 1, 2, 3.
+2. The deck is shuffled using Gilbreath Shuffle 
+3. 4 cards are dealt to each player.
+4. The game starts with each player having four cards in their hand not revealed to their opponents.
+5. The players play 8 rounds, and the starting player changes every turn
+6. At a player's turn, one must play a card from their hand by declaring its number and placing it down on the table.
+7. The card's value is added to the total value.
+8. If the player adds the card that makes the total value exceeding 9, the player loses the round.
+
+### Story
+
+- The player's goal is to prevent the evil mafia bosses from earning the prize money from the gambling tournament
+- The player is called Agent Q, playing against three mafia family bosses called Cassel, Damon, and Mikkelsen
+- The game that the gamblers will play is called Nim Type Zero, which the player has to win in order to stop the evil mafia bosses
+- The player's mission is to win the competition in order to prevent madia families from expanding their business
+
+
+Gilbreath shuffle
+
+- A way to shuffle decks that ensures that with a deck of 4 different suits, each 4 cards will always feature all suits.
+- Since the suits in this game are instead the values 0, 1, 2, 3 in simple terms it means that in every game there were a total of four of each number, redistributed randomly. 
+
+
+### User journey
+
+
+
+**Tutorial:**
+
+- Tutorial of how to play the game
+    - Modals with an arrow to flip the page
+    - Skip button below to head straight to the game
+
+
+**Game Page template:**
+
 
 ### Game Play
 

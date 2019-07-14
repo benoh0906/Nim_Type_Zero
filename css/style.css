@@ -334,6 +334,8 @@ body{
     top: 6.7rem;
     left: 4rem;
     border: 2px solid red;
+    padding: 1px;
+
 }
 
 #p2Card{
@@ -341,6 +343,8 @@ body{
     top: -9rem;
     left: -19rem;
     border: 1px solid black;
+    padding: 1px;
+
 }
 
 #p3Card{
@@ -348,6 +352,8 @@ body{
     top: -31.5rem;
     left: 4rem;
     border: 1px solid black;
+    padding: 1px;
+
 }
 
 #p4Card{
@@ -355,7 +361,39 @@ body{
     top: -20.5rem;
     left: 19rem;
     border: 1px solid black;
+    padding: 1px;
+
 }
+
+.nameTag{
+    font-size: 30px;
+}
+
+#tag1{
+    position: relative;
+    top: -12rem;
+    left: -9.5rem;
+}
+
+#tag2{
+    position: relative;
+    top: -30.5rem;
+    left: -18.5rem;
+}
+
+#tag3{
+    position: relative;
+    top: -44rem;
+    left: -9.5rem;
+}
+
+#tag4{
+    position: relative;
+    top: -36rem;
+    left: 19rem;
+}
+
+
 
 header{
     animation: fadeIn 2s;
