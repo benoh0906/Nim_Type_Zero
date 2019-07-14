@@ -67,9 +67,10 @@ function conspireAI(index){
 
 
         for(let i = 0; i < game.players[index].hand.length;i++){
-            const usedOrNotCons1=document.querySelector(`#p${index+1}Card`).childNodes[i].src
+            // const usedOrNotCons1=document.querySelector(`#p${index+1}Card`).childNodes[i].src
+            const usedOrNotCons1=$(`#p${index+1}Card`).children()[0].id
 
-            if(usedOrNotCons1 ==="file:///Users/jungbinoh/sei-autumn-sweaters/nim_type_zero/css/img/card/back.jpg"){
+            if(usedOrNotCons1 ==='back'){
                 if (game.players[index].hand[i]+3+game.cumulative < 10){
                     p4WinHigh.push([game.players[index].hand[i],i])
 
@@ -101,8 +102,9 @@ function conspireAI(index){
         const lose=[]
         
         for(let i = 0; i < game.players[index].hand.length;i++){
-            const usedOrNotCons2=document.querySelector(`#p${index+1}Card`).childNodes[i].src
-            if(usedOrNotCons2 ==="file:///Users/jungbinoh/sei-autumn-sweaters/nim_type_zero/css/img/card/back.jpg"){
+            // const usedOrNotCons2=document.querySelector(`#p${index+1}Card`).childNodes[i].src
+            const usedOrNotCons2=$(`#p${index+1}Card`).children()[0].id
+            if(usedOrNotCons2 ==='back'){
                 if (game.players[index].hand[i]+game.cumulative < 10){
                     win.push([game.players[index].hand[i],i])
 
@@ -228,7 +230,7 @@ const game = {
                 if(j===0){
                     $(`#p${j+1}Card`).append(`<img class='playOrNot' width="70" height="90" src="css/img/card/${this.players[j].hand[i]}.png">`)
                 } else {
-                    $(`#p${j+1}Card`).append(`<img width="70" height="90" src="css/img/card/back.jpg">`)
+                    $(`#p${j+1}Card`).append(`<img id='back' width="70" height="90" src="css/img/card/back.jpg">`)
                 }
             }
         }

@@ -1,5 +1,12 @@
 ## Nim Type Zero
 
+![MacDown Screenshot](screenshot/main.png)
+
+
+## Motivation
+
+This project starts with an ambition to integrate a simple card game with the AI algorithm that blends in with the story. This game therefore includes the story board, secretive computer behaviors and hidden features that the player needs to find in order to win the game.
+
 [Play Nim Type Zero](https://pages.git.generalassemb.ly/benoh0906/nim_type_zero/)
 
 ### Rule
