@@ -7,15 +7,11 @@ This project carries an ambition to integrate a card game with thecomputer playe
 
 The game, "Nim Type Zero," is from the Japanese animation called "Kakegurui," and the storyline is inspired by the film, "007: Casino Royale."
 
-
-##Intro
+## Intro
 
 ### Getting Started
 
 [Play Nim Type Zero](https://pages.git.generalassemb.ly/benoh0906/nim_type_zero/)
-
-
-
 
 ### Rule
 
@@ -51,15 +47,15 @@ The game, "Nim Type Zero," is from the Japanese animation called "Kakegurui," an
 Opening
 ![main screenshot](screenshot/main.png)
 
-- >>: leads to the next page.
-- skip: skips the story and tutorial, goes straight to the 'start' page.
+- ">>": leads to the next page.
+- "skip": skips the story and tutorial, goes straight to the 'start' page.
 
 Mission
 ![mission screenshot](screenshot/mission.png)
 
 - Description of the story of the game.
-- >>: leads to the next page.
-- <<: leads to the previous page.
+- ">>": leads to the next page.
+- "<<": leads to the previous page.
 
 Rule
 ![rule screenshot](screenshot/rule.png)
