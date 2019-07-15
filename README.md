@@ -69,7 +69,7 @@ Start
 - Can access to this modal through the 'skip' button on the opening page.
 
 ### Game
-![game screenshot](screenshot/game.png)
+![game screenshot](screenshot/game1.png)
 
 Scoreboard
 
