@@ -11,7 +11,7 @@ The game, "Nim Type Zero," is from the Japanese animation called "Kakegurui," an
 
 ### Getting Started
 
-[Play Nim Type Zero](https://pages.git.generalassemb.ly/benoh0906/nim_type_zero/)
+[Play Nim Type Zero](https://benoh0906.github.io/project1_nim_type_zero/.)
 
 ### Rule
 
